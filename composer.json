@@ -1,0 +1,43 @@
+{
+    "name": "vertopal/vertopal-php",
+    "description": "PHP library for Vertopal file conversion API",
+    "homepage": "https://github.com/vertopal/vertopal-php",
+    "keywords": [
+      "vertopal",
+      "file-conversion-api",
+      "api",
+      "sdk",
+      "rest",
+      "converter",
+      "file-converter"
+    ],
+    "type": "library",
+    "authors": [
+      {
+        "name": "Vertopal",
+        "email": "contact@vertopal.com",
+        "homepage": "https://www.vertopal.com"
+      }
+    ],
+    "funding": [
+        {
+            "type": "other",
+            "url": "https://www.vertopal.com/en/donate"
+        }
+    ],
+    "support": {
+        "name": "Vertopal",
+        "email": "contact@vertopal.com",
+        "docs": "https://www.vertopal.com/en/developer/api/introduction",
+        "issues": "https://github.com/vertopal/vertopal-php/issues"
+    },
+    "require": {
+      "php": ">=7.4.0",
+      "ext-curl": "*",
+      "ext-json": "*"
+    },
+    "autoload": {
+      "psr-4": {"Vertopal\\": "src/"}
+    },
+    "license": "MIT"
+  }
