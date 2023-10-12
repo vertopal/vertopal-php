@@ -40,7 +40,7 @@ the Vertopal PHP library.
 <?php
 // Import Vertopal classes into the global namespace
 use Vertopal\API\Credential;
-use Vertopal\API\V1;
+use Vertopal\API\Converter;
 
 // Load Composer Autoloader
 require "vendor/autoload.php";
@@ -50,24 +50,11 @@ $app = "your-app-id";
 $token = "your-security-token";
 $credential = new Credential($app, $token);
 
-// Set HTTP request timeout high enough for Synchronous Conversion
-V1::$timeout = 120;
-
-// Set input and output details
-$inputFile = "MickeyMouse.gif";
-$inputPath = "/path/to/" . $inputFile;
-$outputFormat = "apng";
-$outputFile = "MyConvertedFile.apng";
-
-// Call the minimum tasks required for a file conversion
-$response = V1::upload($inputFile, $inputPath, $credential);
-$connector = $response->result->output->connector;
-
-$response = V1::convert($outputFormat, $credential, $connector, null, V1::SYNC);
-$connector = $response->result->output->connector;
-
-$response = V1::downloadURL($credential, $connector);
-$connector = $response->result->output->connector;
-
-V1::downloadFile($credential, $connector, $outputFile);
+// Convert and download your file using the Converter class
+$converter = new Converter("MickeyMouse.gif", $credential);
+$converter->convert("apng");
+$converter->wait();
+if ($converter->isConverted()) {
+    $converter->download();
+}
 ```
