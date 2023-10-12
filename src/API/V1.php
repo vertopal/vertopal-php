@@ -2,7 +2,7 @@
 
 /**
  * VertopalPHPLib - PHP library for Vertopal file conversion API.
- * PHP Version 5.5.
+ * PHP Version 7.4.0
  *
  * @see https://github.com/vertopal/vertopal-php/ The Vertopal-PHP GitHub repo.
  *
@@ -17,6 +17,7 @@
 namespace Vertopal\API;
 
 use ValueError;
+
 
 /**
  * Provides methods for sending requests to the Vertopal API-v1 endpoints.
@@ -307,8 +308,9 @@ class V1 extends ConnectionInterface
 
 
         if ($response) {
+            $responseCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
             if ($responseMode == self::RESPONSE_DECODE) {
-                return json_decode(($response));
+                return new Response($response, $responseCode);
             }
             return $response;
         }
