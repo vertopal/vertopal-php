@@ -2,7 +2,7 @@
 
 /**
  * VertopalPHPLib - PHP library for Vertopal file conversion API.
- * PHP Version 5.5.
+ * PHP Version 7.4.0
  *
  * @see https://github.com/vertopal/vertopal-php/ The Vertopal-PHP GitHub repo.
  *

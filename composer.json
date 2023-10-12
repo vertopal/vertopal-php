@@ -1,7 +1,7 @@
 {
     "name": "vertopal/vertopal-php",
     "description": "PHP library for Vertopal file conversion API",
-    "homepage": "https://github.com/vertopal/vertopal-php",
+    "homepage": "https://www.vertopal.com",
     "keywords": [
       "vertopal",
       "file-conversion-api",
