@@ -49,6 +49,20 @@ class ConnectionInterface
      */
     public const SYNC = "sync";
 
+    public const INPUTS = "inputs";
+    /**
+     * Inputs mode sublist constant.
+     * @access public
+     * @var string
+     */
+
+    public const OUTPUTS = "outputs";
+     /**
+      * Outputs mode sublist constant.
+      * @access public
+      * @var string
+      */
+
     /**
      * Flag for decoding HTTP response.
      * @access protected

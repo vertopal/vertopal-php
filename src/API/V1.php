@@ -214,7 +214,7 @@ class V1 extends ConnectionInterface
         return $response;
     }
 
-/**
+    /**
      * Send a download file request to the Vertopal API endpoint.
      * 
      * @static
@@ -244,6 +244,127 @@ class V1 extends ConnectionInterface
             $data,
             self::RESPONSE_TO_FILE,
             $filename,
+        );
+        
+        return $response;
+    }
+
+    /**
+     * Send a format/get request to the Vertopal API endpoint.
+     * 
+     * @static
+     * @access public
+     *
+     * @param Credential $credential Your client credentials.
+     * @param string $format The specific `format[-type]` you want to get
+     *                       its properties.
+     * @return object|bool Returns the HTTP response or `false` on failure.
+     */
+    public static function formatGet(
+        Credential $credential,
+        string $format
+    ): mixed
+    {
+        $data = [
+            "data" => "{" .
+                "\"app\": \"{$credential->getApp()}\"," .
+                "\"parameters\": {" .
+                    "\"format\": \"{$format}\"" .
+                "}" .
+            "}"
+        ];
+
+        $response = self::request(
+            "/format/get",
+            $credential->getToken(),
+            $data,
+        );
+        
+        return $response;
+    }
+
+    /**
+     * Send a convert/graph request to the Vertopal API endpoint.
+     * 
+     * @static
+     * @access public
+     *
+     * @param Credential $credential Your client credentials.
+     * @param string $input The input `format[-type]`.
+     * @param string $output The output `format[-type]`.
+     * @return object|bool Returns the HTTP response or `false` on failure.
+     */
+    public static function convertGraph(
+        Credential $credential,
+        string $input,
+        string $output
+    ): mixed
+    {
+        $data = [
+            "data" => "{" .
+                "\"app\": \"{$credential->getApp()}\"," .
+                "\"parameters\": {" .
+                    "\"input\": \"{$input}\"," .
+                    "\"output\": \"{$output}\"" .
+                "}" .
+            "}"
+        ];
+
+        $response = self::request(
+            "/convert/graph",
+            $credential->getToken(),
+            $data,
+        );
+        
+        return $response;
+    }
+
+    /**
+     * Send a convert/formats request to the Vertopal API endpoint.
+     * 
+     * @static
+     * @access public
+     *
+     * @param Credential $credential Your client credentials.
+     * @param string $sublist Selects supported formats based on whether they
+     *                        are inputs or outputs. Valid values
+     *                        are `ConnectionInterface.INPUTS`
+     *                        and `ConnectionInterface.OUTPUTS`.
+     * @param string $format The specific `format[-type]` you want to
+     *                       get its supported input or output formats.
+     * @return object|bool Returns the HTTP response or `false` on failure.
+     */
+    public static function convertFormats(
+        Credential $credential,
+        string $sublist,
+        ?string $format = null
+    ): mixed
+    {
+        if (!in_array($sublist, [self::INPUTS, self::OUTPUTS])) {
+            throw new ValueError('sublist must be ' .
+                                 'either "inputs" or "outputs"');
+        }
+
+        if ($format) {
+            $dataFormat = ",\"format\": \"{$format}\"";
+        } else {
+            $dataFormat = "";
+        }
+
+        $data = [
+            "data" => "{" .
+                "\"app\": \"{$credential->getApp()}\"," .
+                "\"parameters\": {" .
+                    "\"sublist\": \"{$sublist}\"" .
+                    "{$dataFormat}" .
+                "}" .
+            "}"
+        ];
+
+        $response = self::request(
+            "/convert/formats",
+            $credential->getToken(),
+            $data,
         );
         
         return $response;
